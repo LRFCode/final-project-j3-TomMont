@@ -1,7 +1,8 @@
+@(comicDetail : ComicDetail)
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Comic List</title>
+    <title>Comic Details</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
@@ -11,16 +12,16 @@
 <body>
     <img src="/assets/images/Batman1.jpg"><br/>
 <h1>Title</h1><br>
-<label>Batman</label>
+<label>@comicDetail.getTitle()</label>
 <h1>Issue</h1><br>
-<labe1>01</labe1>
+<labe1>@comicDetail.getIssueNumber()</labe1>
 <h1>Creators</h1><br>
 <label>Bob Kane, Bill Finger</label>
 <h1>Description</h1><br>
-<label>First Batman Book</label>
+<label>@comicDetail.getDescription()</label>
 <h1>Retail Price</h1><br>
-<label>$0.12</label>
+<label>@comicDetail.getRetailPrice()</label>
 <h1>Market Price</h1><br>
-<label>300,000.00</label>
+<label>@comicDetail.getMarketPrice()</label>
 </body>
 
