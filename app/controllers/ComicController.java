@@ -4,6 +4,8 @@ import com.google.common.io.Files;
 import models.Comic;
 import models.ComicCreator;
 import models.ComicDetail;
+import play.data.DynamicForm;
+import play.data.FormFactory;
 import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
@@ -16,12 +18,13 @@ import java.util.List;
 
 public class ComicController extends Controller
 {
-
+    private FormFactory formFactory;
     private JPAApi jpaApi;
 
     @Inject
-    public ComicController(JPAApi jpaApi)
+    public ComicController(FormFactory formFactory, JPAApi jpaApi)
     {
+        this.formFactory = formFactory;
         this.jpaApi = jpaApi;
     }
 
@@ -127,14 +130,26 @@ public class ComicController extends Controller
     @Transactional
     public Result getComicSearch()
     {
+        DynamicForm form =
+formFactory.form().bindFromRequest();
+        String searchCriteria = form.get("searchcriteria");
+
+        if (searchCriteria == null)
+        {
+            searchCriteria = "";
+        }
+
+        searchCriteria = "%" + searchCriteria + "%";
+
         List<ComicDetail> comicDetail = jpaApi.
                 em().
                 createNativeQuery("SELECT ComicId, TitleName AS Title, IssueNumber, " +
                         "RetailPrice, MarketPrice, Description, publisherName " +
                          "FROM Comic c " +
                         "JOIN Title t ON c.titleId = t.titleId " +
-                        "JOIN Publisher p ON t.publisherId = p.publisherId",
-                        ComicDetail.class).getResultList();
+                        "JOIN Publisher p ON t.publisherId = p.publisherId " +
+                        "WHERE TitleName LIKE :searchname",
+                        ComicDetail.class).setParameter("searchname", searchCriteria).getResultList();
         return ok(views.html.comicsearch.render(comicDetail));
     }
 
