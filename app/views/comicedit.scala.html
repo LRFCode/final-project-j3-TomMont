@@ -10,7 +10,7 @@
     <script src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<img src="/comicimage/@comicDetail.getComicId" width="250"><br/>
+<img src="/comicimage/@comicDetail.getComicId" width="300"><br/>
 <form method="POST" enctype="multipart/form-data">
     <input type="file" id="filename" name="filename">
 
@@ -35,7 +35,7 @@
 <label>@comicDetail.getRetailPrice()</label>
 
 <h1>Market Price</h1><br>
-<label>@comicDetail.getMarketPrice()</label>
+<label>@comicDetail.getMarketPrice()</label><br>
     <button type="submit">Save</button>
 </form>
 </body>

@@ -1,3 +1,4 @@
+@(comicDetails : List[ComicDetail])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,23 @@
     <script src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+<h1>Comics</h1>
+<table>
+    <th>Cover</th>
+    <th>Title</th>
+    <th>Issue #</th>
+    <th>Retail Price</th>
+    <th>Market Value</th>
+@for(comicDetail <- comicDetails) {
+    <tr>
+        <td><img src="/comicimage/@comicDetail.getComicId()" width="50"></td>
+        <td><a href="/comic/@comicDetail.getComicId()">@comicDetail.getTitle()</a></td>
+        <td>@comicDetail.getIssueNumber()</td>
+        <td>@comicDetail.getRetailPrice()</td>
+        <td>@comicDetail.getMarketPrice()</td>
+    </tr>
+}
+<!--
 <table style="width:100%">
     <tr>
         <th>Title</th>
@@ -28,5 +46,6 @@
         <td>$0.12</td>
         <td>$300,000.00</td>
     </tr>
+    -->
 </table>
 </body>

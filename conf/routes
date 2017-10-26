@@ -15,3 +15,4 @@ GET     /comicedit/:id              controllers.ComicController.getComicEdit(id:
 POST    /comicedit/:id              controllers.ComicController.postComicEdit(id:Integer)
 GET     /comicsearch                controllers.ComicController.getComicSearch
 GET     /comicstats                 controllers.ComicController.getComicStats
+GET     /comicimage/:id             controllers.ComicController.getComicImage(id:Integer)

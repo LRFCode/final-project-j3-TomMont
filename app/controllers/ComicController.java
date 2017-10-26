@@ -70,7 +70,7 @@ public class ComicController extends Controller
                 .setParameter("comicId", comicId)
                 .getResultList();
 
-        return ok(views.html.comics.render(comicDetail, creators));
+        return ok(views.html.comicedit.render(comicDetail, creators));
     }
 
     @Transactional
@@ -124,10 +124,18 @@ public class ComicController extends Controller
 
 
 
-
+    @Transactional
     public Result getComicSearch()
     {
-        return ok(views.html.comicsearch.render());
+        List<ComicDetail> comicDetail = jpaApi.
+                em().
+                createNativeQuery("SELECT ComicId, TitleName AS Title, IssueNumber, " +
+                        "RetailPrice, MarketPrice, Description, publisherName " +
+                         "FROM Comic c " +
+                        "JOIN Title t ON c.titleId = t.titleId " +
+                        "JOIN Publisher p ON t.publisherId = p.publisherId",
+                        ComicDetail.class).getResultList();
+        return ok(views.html.comicsearch.render(comicDetail));
     }
 
     public Result getComicStats()

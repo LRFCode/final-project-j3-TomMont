@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /*
 CREATE TABLE Comic (
@@ -29,7 +30,7 @@ public class Comic
     @Column(name="ComicId")     private int comicId;
     @Column(name="IssueNumber")     private int issueNumber;
     @Column(name="TitleId")         private int titleId;
-    @Column(name="PublicationDate") private int publicationDate;
+    @Column(name="PublicationDate") private Date publicationDate;
     @Column(name="ConditionId")     private int conditionId;
     @Column(name="RetailPrice")     private BigDecimal retailPrice;
     @Column(name="MarketPrice")     private BigDecimal MarketPrice;
@@ -67,12 +68,12 @@ public class Comic
         this.titleId = titleId;
     }
 
-    public int getPublicationDate()
+    public Date getPublicationDate()
     {
         return publicationDate;
     }
 
-    public void setPublicationDate(int publicationDate)
+    public void setPublicationDate(Date publicationDate)
     {
         this.publicationDate = publicationDate;
     }
