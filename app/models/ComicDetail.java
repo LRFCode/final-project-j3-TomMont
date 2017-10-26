@@ -10,10 +10,21 @@ public class ComicDetail
     @Id
     private int comicId;
     private String title;
+    private String publisherName;
     private Integer issueNumber;
     private String description;
     private BigDecimal retailPrice;
     private BigDecimal marketPrice;
+
+    public String getPublisher()
+    {
+        return publisherName;
+    }
+
+    public void setPublisher(String publisherName)
+    {
+        this.publisherName = publisherName;
+    }
 
     public String getDescription()
     {

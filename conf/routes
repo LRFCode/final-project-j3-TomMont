@@ -11,5 +11,7 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 
 GET     /comic/:id                  controllers.ComicController.getComic(id:Integer)
+GET     /comicedit/:id              controllers.ComicController.getComicEdit(id:Integer)
+POST    /comicedit/:id              controllers.ComicController.postComicEdit(id:Integer)
 GET     /comicsearch                controllers.ComicController.getComicSearch
 GET     /comicstats                 controllers.ComicController.getComicStats
