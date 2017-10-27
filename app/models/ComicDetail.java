@@ -12,9 +12,41 @@ public class ComicDetail
     private String title;
     private String publisherName;
     private Integer issueNumber;
+    private String publicationDate;
+    private int publisherId;
     private String description;
     private BigDecimal retailPrice;
     private BigDecimal marketPrice;
+
+    public int getPublisherId()
+    {
+        return publisherId;
+    }
+
+    public void setPublisherId(int publisherId)
+    {
+        this.publisherId = publisherId;
+    }
+
+    public String getPublisherName()
+    {
+        return publisherName;
+    }
+
+    public void setPublisherName(String publisherName)
+    {
+        this.publisherName = publisherName;
+    }
+
+    public String getPublicationDate()
+    {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(String publicationDate)
+    {
+        this.publicationDate = publicationDate;
+    }
 
     public String getPublisher()
     {

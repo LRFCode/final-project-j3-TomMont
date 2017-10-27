@@ -16,3 +16,5 @@ POST    /comicedit/:id              controllers.ComicController.postComicEdit(id
 GET     /comicsearch                controllers.ComicController.getComicSearch
 GET     /comicstats                 controllers.ComicController.getComicStats
 GET     /comicimage/:id             controllers.ComicController.getComicImage(id:Integer)
+
+GET     /favicon.ico                controllers.Assets.at(path="/public/images", file="favicon.png")

@@ -1,4 +1,4 @@
-@(comicDetail : ComicDetail, creators : List[ComicCreator])
+@(comicDetail : ComicDetail, creators : List[ComicCreator], publishers : List[Publisher])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +10,13 @@
     <script src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<img src="/comicimage/@comicDetail.getComicId" width="300"><br/>
 <form method="POST" enctype="multipart/form-data">
+<img src="/comicimage/@comicDetail.getComicId" width="300"><br/>
+
     <input type="file" id="filename" name="filename">
 
 <h1>Title</h1><br>
-<label>@comicDetail.getTitle()</label>
+<input type = "text" value ="@comicDetail.getTitle">@comicDetail.getTitle()</input>
 
 <h1>Issue</h1><br>
 <labe1>@comicDetail.getIssueNumber()</labe1>
@@ -25,8 +26,24 @@
 <label>@creator.getCreatorName()</label><br>
 }
 
-<h1>Publisher</h1>
+<!--<h1>Publisher</h1>
 <label>@comicDetail.getPublisher()</label>
+-->
+
+<h1>Publisher</h1>
+<select name="publisherId">
+    @for(publisher <- publishers){
+    @if(publisher.getPublisherId == ComicDetail.getPublisherId){
+    <option selected="true" value="@publisher.getPublisherId()">@publisher.getPublisherName()
+    </option>
+    }else{
+    <option value ="@publisher.getPublisherId()">@publisher.getPublisherName()</option>
+    }
+}
+</select>
+
+<h1>Publication Date</h1>
+<label>@comicDetail.getPublicationDate()</label>
 
 <h1>Description</h1><br>
 <label>@comicDetail.getDescription()</label>
