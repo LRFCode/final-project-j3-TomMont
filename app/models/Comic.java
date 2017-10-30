@@ -31,22 +31,11 @@ public class Comic
     @Column(name="IssueNumber")     private int issueNumber;
     @Column(name="TitleId")         private int titleId;
     @Column(name="PublicationDate") private Date publicationDate;
-    @Column(name="PublisherId")     private int publisherId;
     @Column(name="ConditionId")     private int conditionId;
     @Column(name="RetailPrice")     private BigDecimal retailPrice;
     @Column(name="MarketPrice")     private BigDecimal MarketPrice;
     @Column(name="Description")     private String description;
     @Column(name="Image")           private byte[] image;
-
-    public int getPublisherId()
-    {
-        return publisherId;
-    }
-
-    public void setPublisherId(int publisherId)
-    {
-        this.publisherId = publisherId;
-    }
 
     public int getComicId()
     {

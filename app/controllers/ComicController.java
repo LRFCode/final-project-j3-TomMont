@@ -1,10 +1,7 @@
 package controllers;
 
 import com.google.common.io.Files;
-import models.Comic;
-import models.ComicCreator;
-import models.ComicDetail;
-import models.Publisher;
+import models.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -34,10 +31,11 @@ public class ComicController extends Controller
     {
 
         ComicDetail comicDetail = (ComicDetail)jpaApi.em()
-                .createNativeQuery("SELECT c.ComicId, t.TitleName as Title, c.RetailPrice, c.MarketPrice, c.IssueNumber, c.Description, p.PublisherId, p.PublisherName, c.PublicationDate " +
+                .createNativeQuery("SELECT c.ComicId, t.TitleName as Title, c.RetailPrice, c.MarketPrice, c.IssueNumber, c.Description, p.PublisherId, p.PublisherName, c.PublicationDate, cc.conditionId, cc.conditionName " +
                         "FROM Comic c " +
                         "JOIN Title t ON c.titleId = t.titleId " +
                         "JOIN Publisher p ON p.PublisherId = t.PublisherId " +
+                        "JOIN ComicCondition cc ON c.ConditionId = cc.ConditionId " +
                         "WHERE comicId = :comicId", ComicDetail.class)
                 .setParameter("comicId", comicId)
                 .getSingleResult();
@@ -58,10 +56,11 @@ public class ComicController extends Controller
     {
 
         ComicDetail comicDetail = (ComicDetail)jpaApi.em()
-                .createNativeQuery("SELECT c.ComicId, t.TitleName as Title, c.RetailPrice, c.MarketPrice, c.IssueNumber, c.Description, p.PublisherId, p.PublisherName, c.PublicationDate " +
+                .createNativeQuery("SELECT c.ComicId, t.TitleName as Title, c.RetailPrice, c.MarketPrice, c.IssueNumber, c.Description, p.PublisherId, p.PublisherName, c.PublicationDate, cc.ConditionId, cc.ConditionName " +
                         "FROM Comic c " +
                         "JOIN Title t ON c.titleId = t.titleId " +
                         "JOIN Publisher p ON p.PublisherId = t.PublisherId " +
+                        "JOIN ComicCondition cc ON c.ConditionId = cc.ConditionId " +
                         "WHERE comicId = :comicId", ComicDetail.class)
                 .setParameter("comicId", comicId)
                 .getSingleResult();
@@ -73,12 +72,13 @@ public class ComicController extends Controller
                         "WHERE comicId = :comicId", ComicCreator.class)
                 .setParameter("comicId", comicId)
                 .getResultList();
-        List<Publisher> publishers = jpaApi.
+
+        List<ComicCondition> comicConditions = jpaApi.
                 em().
-                createQuery("SELECT p FROM Publisher p", Publisher.class).
+                createQuery("SELECT cc FROM ComicCondition cc", ComicCondition.class).
                 getResultList();
 
-        return ok(views.html.comicedit.render(comicDetail, creators));
+        return ok(views.html.comicedit.render(comicDetail, creators, comicConditions));
     }
 
     @Transactional
@@ -100,8 +100,8 @@ public class ComicController extends Controller
         }
 
         DynamicForm form = formFactory.form().bindFromRequest();
-        String name = form.get("name");
-        int publisherId = Integer.parseInt(form.get("publisherId"));
+        int conditionId = Integer.parseInt(form.get("conditionId"));
+
 
         Comic comic = jpaApi.
                 em().
@@ -113,11 +113,11 @@ public class ComicController extends Controller
             comic.setImage(image);
         }
 
-        comic.setPublisherId(publisherId);
+        comic.setConditionId(conditionId);
 
         jpaApi.em().persist(comic);
 
-        return ok("Saved Comic");
+        return redirect(routes.ComicController.getComicSearch());
     }
 
     @Transactional(readOnly=true)
@@ -136,8 +136,6 @@ public class ComicController extends Controller
         }
     }
 
-
-
     @Transactional
     public Result getComicSearch()
     {
@@ -155,11 +153,13 @@ formFactory.form().bindFromRequest();
         List<ComicDetail> comicDetail = jpaApi.
                 em().
                 createNativeQuery("SELECT ComicId, TitleName AS Title, IssueNumber, " +
-                        "RetailPrice, MarketPrice, Description, publisherName, PublicationDate, publisherId " +
+                        "RetailPrice, MarketPrice, Description, publisherName, PublicationDate, p.publisherId, cc.conditionId, cc.conditionName " +
                          "FROM Comic c " +
                         "JOIN Title t ON c.titleId = t.titleId " +
                         "JOIN Publisher p ON t.publisherId = p.publisherId " +
-                        "WHERE TitleName LIKE :searchname",
+                        "JOIN ComicCondition cc ON c.ConditionId = cc.ConditionId " +
+                        "WHERE TitleName LIKE :searchname " +
+                        "ORDER BY TitleName",
                         ComicDetail.class).setParameter("searchname", searchCriteria).getResultList();
         return ok(views.html.comicsearch.render(comicDetail));
     }

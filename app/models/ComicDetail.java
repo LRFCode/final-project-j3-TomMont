@@ -14,9 +14,31 @@ public class ComicDetail
     private Integer issueNumber;
     private String publicationDate;
     private int publisherId;
+    private int conditionId;
+    private String conditionName;
     private String description;
     private BigDecimal retailPrice;
     private BigDecimal marketPrice;
+
+    public int getConditionId()
+    {
+        return conditionId;
+    }
+
+    public void setConditionId(int conditionId)
+    {
+        this.conditionId = conditionId;
+    }
+
+    public String getConditionName()
+    {
+        return conditionName;
+    }
+
+    public void setConditionName(String conditionName)
+    {
+        this.conditionName = conditionName;
+    }
 
     public int getPublisherId()
     {

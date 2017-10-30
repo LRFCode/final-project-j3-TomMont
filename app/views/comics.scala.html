@@ -28,6 +28,9 @@
 <h1>Publication Date</h1>
 <label>@comicDetail.getPublicationDate()</label>
 
+<h1>Comic Condition</h1>
+<label>@comicDetail.getConditionName()</label>
+
 <h1>Description</h1><br>
 <label>@comicDetail.getDescription()</label>
 
@@ -35,8 +38,12 @@
 <label>@comicDetail.getRetailPrice()</label>
 
 <h1>Market Price</h1><br>
-<label>@comicDetail.getMarketPrice()</label>
+<label>@comicDetail.getMarketPrice()</label><br>
+
+    <a href="/comicedit/@comicDetail.getComicId()"><button>Edit</button></a>
 </body>
+
+
 
 
 

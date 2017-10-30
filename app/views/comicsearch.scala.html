@@ -22,6 +22,7 @@
     <th>Issue #</th>
     <th>Publisher</th>
     <th>Publication Date</th>
+    <th>Condition</th>
     <th>Retail Price</th>
     <th>Market Value</th>
     </tr>
@@ -32,8 +33,10 @@
         <td>@comicDetail.getIssueNumber()</td>
         <td>@comicDetail.getPublisher()</td>
         <td>@comicDetail.getPublicationDate</td>
+        <td>@comicDetail.getConditionName</td>
         <td>@comicDetail.getRetailPrice()</td>
         <td>@comicDetail.getMarketPrice()</td>
+        <td><a href="/comicedit/@comicDetail.getComicId()"><button>Edit</button></a></td>
     </tr>
 }
 </table>
