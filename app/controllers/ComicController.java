@@ -100,6 +100,7 @@ public class ComicController extends Controller
         }
 
         DynamicForm form = formFactory.form().bindFromRequest();
+        String description = form.get("description");
         int conditionId = Integer.parseInt(form.get("conditionId"));
 
 
@@ -114,6 +115,7 @@ public class ComicController extends Controller
         }
 
         comic.setConditionId(conditionId);
+        comic.setDescription(description);
 
         jpaApi.em().persist(comic);
 
