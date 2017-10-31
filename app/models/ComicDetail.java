@@ -3,6 +3,8 @@ package models;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 public class ComicDetail
@@ -12,7 +14,7 @@ public class ComicDetail
     private String title;
     private String publisherName;
     private Integer issueNumber;
-    private String publicationDate;
+    private Date publicationDate;
     private int publisherId;
     private int conditionId;
     private String conditionName;
@@ -60,12 +62,19 @@ public class ComicDetail
         this.publisherName = publisherName;
     }
 
-    public String getPublicationDate()
+    public Date getPublicationDate()
     {
         return publicationDate;
     }
 
-    public void setPublicationDate(String publicationDate)
+    public String getFormattedPublicationDate()
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        return sdf.format(publicationDate);
+    }
+
+    public void setPublicationDate(Date publicationDate)
     {
         this.publicationDate = publicationDate;
     }

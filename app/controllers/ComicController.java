@@ -12,6 +12,9 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ComicController extends Controller
@@ -102,6 +105,20 @@ public class ComicController extends Controller
         DynamicForm form = formFactory.form().bindFromRequest();
         String description = form.get("description");
         int conditionId = Integer.parseInt(form.get("conditionId"));
+        BigDecimal retailPrice = new BigDecimal(form.get("retailPrice"));
+        BigDecimal marketPrice = new BigDecimal(form.get("marketPrice"));
+        String formattedPublicationDate = form.get ("publicationDate");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date publicationDate;
+
+        try
+        {
+            publicationDate = sdf.parse(formattedPublicationDate);
+        }
+        catch (Exception e)
+        {
+            publicationDate = null;
+        }
 
 
         Comic comic = jpaApi.
@@ -116,6 +133,9 @@ public class ComicController extends Controller
 
         comic.setConditionId(conditionId);
         comic.setDescription(description);
+        comic.setRetailPrice(retailPrice);
+        comic.setMarketPrice(marketPrice);
+        comic.setPublicationDate(publicationDate);
 
         jpaApi.em().persist(comic);
 

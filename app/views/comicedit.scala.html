@@ -28,7 +28,7 @@
 
 
 <h1>Publication Date</h1>
-<label>@comicDetail.getPublicationDate()</label>
+    <input type="date" value="@comicDetail.getFormattedPublicationDate" id="publicationDate" name="publicationDate">
 
 <h1>Condition</h1>
     <select name="conditionId">
@@ -45,10 +45,10 @@
 <h1>Description</h1><br>
     <textarea name="description" id="description" rows="4" cols="50">@comicDetail.getDescription()</textarea>
 <h1>Retail Price</h1><br>
-<label>@comicDetail.getRetailPrice()</label>
+    <input type="number" value="@comicDetail.getRetailPrice()" id="retailPrice" name="retailPrice" step=".01">
 
 <h1>Market Price</h1><br>
-<label>@comicDetail.getMarketPrice()</label><br>
+<input type="number" value="@comicDetail.getMarketPrice()" id="marketPrice" name="marketPrice" step=".01"><br>
     <button type="submit">Save</button><a href="/comicsearch"><button>Cancel</button></a>
 </form>
 </body>

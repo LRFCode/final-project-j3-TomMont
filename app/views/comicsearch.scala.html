@@ -10,12 +10,13 @@
     <script src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
+<table class="table table-striped">
 <h1>Comics</h1>
 <form method="GET">
     <input type="text" name="searchcriteria" id="searchcriteria"/>
     <button type="submit">Search</button>
     </form>
-<table>
     <tr>
     <th>Cover</th>
     <th>Title</th>
@@ -25,6 +26,7 @@
     <th>Condition</th>
     <th>Retail Price</th>
     <th>Market Value</th>
+    <th></th>
     </tr>
         @for(comicDetail <- comicDetails) {
     <tr>
@@ -32,7 +34,7 @@
         <td><a href="/comic/@comicDetail.getComicId()">@comicDetail.getTitle()</a></td>
         <td>@comicDetail.getIssueNumber()</td>
         <td>@comicDetail.getPublisher()</td>
-        <td>@comicDetail.getPublicationDate</td>
+        <td>@comicDetail.getFormattedPublicationDate</td>
         <td>@comicDetail.getConditionName</td>
         <td>@comicDetail.getRetailPrice()</td>
         <td>@comicDetail.getMarketPrice()</td>
@@ -40,4 +42,5 @@
     </tr>
 }
 </table>
+</div>
 </body>
