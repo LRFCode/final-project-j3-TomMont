@@ -11,7 +11,8 @@ public class ComicDetail
 {
     @Id
     private int comicId;
-    private String title;
+    private int titleId;
+    private String titleName;
     private String publisherName;
     private Integer issueNumber;
     private Date publicationDate;
@@ -119,14 +120,24 @@ public class ComicDetail
         this.comicId = comicId;
     }
 
-    public String getTitle()
+    public int getTitleId()
     {
-        return title;
+        return titleId;
     }
 
-    public void setTitle(String title)
+    public void setTitleId(int titleId)
     {
-        this.title = title;
+        this.titleId = titleId;
+    }
+
+    public String getTitleName()
+    {
+        return titleName;
+    }
+
+    public void setTitleName(String titleName)
+    {
+        this.titleName = titleName;
     }
 
     public BigDecimal getRetailPrice()

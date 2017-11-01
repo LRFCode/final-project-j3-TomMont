@@ -10,37 +10,70 @@
     <script src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <img src="/comicimage/@comicDetail.getComicId" width="300"><br/>
-<h1>Title</h1><br>
-<label>@comicDetail.getTitle()</label>
 
-<h1>Issue</h1><br>
-<labe1>@comicDetail.getIssueNumber()</labe1>
+<nav class="navbar navbar-inverse navbar-fixed-top">
 
-<h1>Creators</h1><br>
+
+
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Cosmic Comic Collector</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/comicsearch">Search</a></li>
+            <li><a href="/comicadd">Add Comic</a></li>
+            <li><a href="/comicstats">Statistics</a></li></ul>
+        <ul class="nav navbar-nav navbar-right">
+            <form method="GET" class="form-inline">
+                <input class="form-control mr-sm-2" name="searchcriteria" id="searchcriteria" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></form>
+        </ul>
+    </div>
+</nav>
+
+<div class="container" style="margin-top:150px">
+    <div class="row">
+    <div class="col-sm-5">
+    <img src="/comicimage/@comicDetail.getComicId" width="350"><br/>
+    </div>
+
+        <div class="col-sm-3">
+<h3>Title</h3><br>
+<p>@comicDetail.getTitleName()</p>
+
+
+<h3>Issue</h3><br>
+<p>@comicDetail.getIssueNumber()</p>
+
+<h3>Creators</h3><br>
     @for(creator <- creators){
-<label>@creator.getCreatorName()</label><br>
+<p>@creator.getCreatorName()</p>
     }
 
-<h1>Publisher</h1>
-<label>@comicDetail.getPublisher()</label>
+<h3>Publisher</h3>
+<p>@comicDetail.getPublisher()</p>
+    </div>
 
-<h1>Publication Date</h1>
-<label>@comicDetail.getPublicationDate()</label>
+    <div class="col-sm-4">
+<h3>Publication Date</h3>
+<p>@comicDetail.getFormattedPublicationDate()</p>
 
-<h1>Comic Condition</h1>
-<label>@comicDetail.getConditionName()</label>
+<h3>Comic Condition</h3>
+<p>@comicDetail.getConditionName()</p>
 
-<h1>Description</h1><br>
-<label>@comicDetail.getDescription()</label>
+<h3>Description</h3>
+<p>@comicDetail.getDescription()</p>
 
-<h1>Retail Price</h1><br>
-<label>@comicDetail.getRetailPrice()</label>
+<h3>Retail Price</h3>
+<p>@comicDetail.getRetailPrice()</p>
 
-<h1>Market Price</h1><br>
-<label>@comicDetail.getMarketPrice()</label><br>
+<h3>Market Price</h3>
+<p>@comicDetail.getMarketPrice()</p><br>
 
     <a href="/comicedit/@comicDetail.getComicId()"><button>Edit</button></a>
+    </div>
+</div>
+</div>
 </body>
 
 

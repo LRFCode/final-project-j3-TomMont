@@ -9,6 +9,7 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import scala.concurrent.java8.FuturesConvertersImpl;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -34,7 +35,7 @@ public class ComicController extends Controller
     {
 
         ComicDetail comicDetail = (ComicDetail)jpaApi.em()
-                .createNativeQuery("SELECT c.ComicId, t.TitleName as Title, c.RetailPrice, c.MarketPrice, c.IssueNumber, c.Description, p.PublisherId, p.PublisherName, c.PublicationDate, cc.conditionId, cc.conditionName " +
+                .createNativeQuery("SELECT c.ComicId, t.TitleName, t.TitleId, c.RetailPrice, c.MarketPrice, c.IssueNumber, c.Description, p.PublisherId, p.PublisherName, c.PublicationDate, cc.conditionId, cc.conditionName " +
                         "FROM Comic c " +
                         "JOIN Title t ON c.titleId = t.titleId " +
                         "JOIN Publisher p ON p.PublisherId = t.PublisherId " +
@@ -54,12 +55,22 @@ public class ComicController extends Controller
         return ok(views.html.comics.render(comicDetail, creators));
     }
 
+    public Result getComicAdd()
+    {
+        return ok("addComic");
+    }
+
+    public Result postComicAdd()
+    {
+        return ok("addComic");
+    }
+
     @Transactional(readOnly = true)
     public Result getComicEdit(Integer comicId)
     {
 
         ComicDetail comicDetail = (ComicDetail)jpaApi.em()
-                .createNativeQuery("SELECT c.ComicId, t.TitleName as Title, c.RetailPrice, c.MarketPrice, c.IssueNumber, c.Description, p.PublisherId, p.PublisherName, c.PublicationDate, cc.ConditionId, cc.ConditionName " +
+                .createNativeQuery("SELECT c.ComicId, t.TitleName, t.TitleId, c.RetailPrice, c.MarketPrice, c.IssueNumber, c.Description, p.PublisherId, p.PublisherName, c.PublicationDate, cc.ConditionId, cc.ConditionName " +
                         "FROM Comic c " +
                         "JOIN Title t ON c.titleId = t.titleId " +
                         "JOIN Publisher p ON p.PublisherId = t.PublisherId " +
@@ -76,12 +87,17 @@ public class ComicController extends Controller
                 .setParameter("comicId", comicId)
                 .getResultList();
 
+        List<ComicTitle> comicTitle = jpaApi.
+                em().
+                createQuery("SELECT t FROM ComicTitle t", ComicTitle.class).
+                getResultList();
+
         List<ComicCondition> comicConditions = jpaApi.
                 em().
                 createQuery("SELECT cc FROM ComicCondition cc", ComicCondition.class).
                 getResultList();
 
-        return ok(views.html.comicedit.render(comicDetail, creators, comicConditions));
+        return ok(views.html.comicedit.render(comicDetail, creators, comicConditions, comicTitle));
     }
 
     @Transactional
@@ -104,12 +120,15 @@ public class ComicController extends Controller
 
         DynamicForm form = formFactory.form().bindFromRequest();
         String description = form.get("description");
+        int issueNumber = Integer.parseInt(form.get("issueNumber"));
         int conditionId = Integer.parseInt(form.get("conditionId"));
         BigDecimal retailPrice = new BigDecimal(form.get("retailPrice"));
         BigDecimal marketPrice = new BigDecimal(form.get("marketPrice"));
         String formattedPublicationDate = form.get ("publicationDate");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date publicationDate;
+        int titleId = Integer.parseInt(form.get("titleId"));
+
 
         try
         {
@@ -136,6 +155,8 @@ public class ComicController extends Controller
         comic.setRetailPrice(retailPrice);
         comic.setMarketPrice(marketPrice);
         comic.setPublicationDate(publicationDate);
+        comic.setTitleId(titleId);
+        comic.setIssueNumber(issueNumber);
 
         jpaApi.em().persist(comic);
 
@@ -174,7 +195,7 @@ formFactory.form().bindFromRequest();
 
         List<ComicDetail> comicDetail = jpaApi.
                 em().
-                createNativeQuery("SELECT ComicId, TitleName AS Title, IssueNumber, " +
+                createNativeQuery("SELECT ComicId, t.TitleName, t.TitleId, IssueNumber, " +
                         "RetailPrice, MarketPrice, Description, publisherName, PublicationDate, p.publisherId, cc.conditionId, cc.conditionName " +
                          "FROM Comic c " +
                         "JOIN Title t ON c.titleId = t.titleId " +
@@ -186,8 +207,14 @@ formFactory.form().bindFromRequest();
         return ok(views.html.comicsearch.render(comicDetail));
     }
 
+    @Transactional(readOnly=true)
     public Result getComicStats()
     {
-        return ok(views.html.comicstats.render());
+        ComicStats comicStats = new ComicStats();
+        comicStats.setNumberOfComics(49);
+
+        jpaApi.em().createNativeQuery("SELECT COUNT(*) AS ComicCount FROM Comics").getSingleResult();
+
+        return ok(views.html.comicstats.render(comicStats));
     }
 }

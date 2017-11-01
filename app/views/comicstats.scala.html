@@ -1,3 +1,4 @@
+@(comicStats : ComicStats)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +10,6 @@
     <script src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Comic Collection Statistics</h1>
-<label>Total Retail Value:</label><label>666</label><br>
-<label>Total Market Value:</label><label>1234123</label><br>
-<label>Total Number of Books:</label><label>20</label><br>
-<label>Total Number of Specific Publisher Books:</label><label>10</label><br>
+<label>Number of Comics: </label><label>@comicStats.getNumberOfComics()</label>
 </body>
+</html>

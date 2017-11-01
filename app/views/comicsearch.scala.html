@@ -10,13 +10,30 @@
     <script src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+
+
+
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Cosmic Comic Collector</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/comicsearch">Search</a></li>
+            <li><a href="/comicadd">Add Comic</a></li>
+            <li><a href="/comicstats">Statistics</a></li></ul>
+        <ul class="nav navbar-nav navbar-right">
+            <form method="GET" class="form-inline">
+                <input class="form-control mr-sm-2" name="searchcriteria" id="searchcriteria" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></form>
+        </ul>
+    </div>
+</nav>
+
+<div class="container" style="margin-top:75px">
 <table class="table table-striped">
 <h1>Comics</h1>
-<form method="GET">
-    <input type="text" name="searchcriteria" id="searchcriteria"/>
-    <button type="submit">Search</button>
-    </form>
     <tr>
     <th>Cover</th>
     <th>Title</th>
@@ -31,7 +48,7 @@
         @for(comicDetail <- comicDetails) {
     <tr>
         <td><img src="/comicimage/@comicDetail.getComicId()" width="50"></td>
-        <td><a href="/comic/@comicDetail.getComicId()">@comicDetail.getTitle()</a></td>
+        <td><a href="/comic/@comicDetail.getComicId()">@comicDetail.getTitleName()</a></td>
         <td>@comicDetail.getIssueNumber()</td>
         <td>@comicDetail.getPublisher()</td>
         <td>@comicDetail.getFormattedPublicationDate</td>

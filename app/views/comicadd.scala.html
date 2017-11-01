@@ -1,0 +1,97 @@
+@(comicDetail : ComicDetail, creators : List[ComicCreator], comicConditions : List[ComicCondition], comicTitle : List[ComicTitle])
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Comic Details</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <script src="/assets/lib/jquery/jquery.min.js"></script>
+    <script src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+
+
+
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Cosmic Comic Collector</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/comicsearch">Search</a></li>
+            <li><a href="/comicadd">Add Comic</a></li>
+            <li><a href="/comicstats">Statistics</a></li></ul>
+        <ul class="nav navbar-nav navbar-right">
+            <form method="GET" class="form-inline">
+                <input class="form-control mr-sm-2" name="searchcriteria" id="searchcriteria" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></form>
+        </ul>
+    </div>
+</nav>
+
+<div class="container" style="margin-top:150px">
+    <div class="row">
+        <div class="col-sm-5">
+            <form method="POST" enctype="multipart/form-data">
+                <img src="/comicimage/@comicDetail.getComicId" width="350"><br/>
+                <input type="file" id="filename" name="filename">
+        </div>
+
+        <div class="col-sm-3">
+            <h3>Title</h3>
+            <select name="titleId">
+                @for(comicTitle <- comicTitle){
+                @if(comicTitle.getTitleId == comicDetail.getTitleId){
+                <option selected="true" value="@comicTitle.getTitleId()">@comicTitle.getTitleName()
+                </option>
+                }else{
+                <option value ="@comicTitle.getTitleId()">@comicTitle.getTitleName()</option>
+                }
+                }
+            </select>
+
+            <h3>Issue</h3>
+            <input type="number" value="@comicDetail.getIssueNumber" id="issueNumber" name="issueNumber">
+
+            <h3>Creators</h3>
+            @for(creator <- creators){
+            <p>@creator.getCreatorName()</p>
+            }
+
+
+            <h3>Publication Date</h3>
+            <input type="date" value="@comicDetail.getFormattedPublicationDate" id="publicationDate" name="publicationDate">
+
+            <h3>Publisher</h3>
+            <p>@comicDetail.getPublisher()</p>
+        </div>
+
+        <div class="col-sm-4">
+            <h3>Condition</h3>
+            <select name="conditionId">
+                @for(comicCondition <- comicConditions){
+                @if(comicCondition.getConditionId == comicDetail.getConditionId){
+                <option selected="true" value="@comicCondition.getConditionId()">@comicCondition.getConditionName()
+                </option>
+                }else{
+                <option value ="@comicCondition.getConditionId()">@comicCondition.getConditionName()</option>
+                }
+                }
+            </select>
+
+            <h3>Description</h3>
+            <textarea name="description" id="description" rows="4" cols="50">@comicDetail.getDescription()</textarea>
+            <h3>Retail Price</h3>
+            <input type="number" value="@comicDetail.getRetailPrice()" id="retailPrice" name="retailPrice" step=".01">
+
+            <h3>Market Price</h3>
+            <input type="number" value="@comicDetail.getMarketPrice()" id="marketPrice" name="marketPrice" step=".01"><br/><br/>
+            <button type="submit">Save</button><a href="/comicsearch"><button>Cancel</button></a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
