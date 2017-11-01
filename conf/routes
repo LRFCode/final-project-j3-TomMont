@@ -19,5 +19,7 @@ GET     /comicimage/:id             controllers.ComicController.getComicImage(id
 GET     /comicadd                   controllers.ComicController.getComicAdd
 POST    /comicadd                   controllers.ComicController.postComicAdd
 GET     /comicstats                 controllers.ComicController.getComicStats
+GET     /comictitleadd              controllers.ComicController.getComicTitleAdd
+POST    /comictitleadd              controllers.ComicController.postComicTitleAdd
 
 GET     /favicon.ico                controllers.Assets.at(path="/public/images", file="favicon.png")
