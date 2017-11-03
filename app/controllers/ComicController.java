@@ -45,7 +45,7 @@ public class ComicController extends Controller
                 .getSingleResult();
 
         List<ComicCreator> creators = jpaApi.em()
-                .createNativeQuery("SELECT ComicCreatorId, CreatorName " +
+                .createNativeQuery("SELECT cc.ComicCreatorId, c.CreatorName, cc.ComicId " +
                         "FROM ComicCreator cc " +
                         "JOIN Creator c ON c.CreatorId = cc.CreatorId " +
                         "WHERE comicId = :comicId", ComicCreator.class)
@@ -61,14 +61,14 @@ public class ComicController extends Controller
 
 
         List<ComicCreator> creators = jpaApi.em()
-                .createNativeQuery("SELECT ComicCreatorId, CreatorName " +
-                        "FROM ComicCreator cc " +
-                        "JOIN Creator c ON c.CreatorId = cc.CreatorId", ComicCreator.class)
+                .createNativeQuery("SELECT CreatorId AS ComicCreatorId, CreatorName, CreatorId AS ComicId " +
+                        "FROM Creator cc ",
+                        ComicCreator.class)
                 .getResultList();
 
         List<ComicTitle> comicTitle = jpaApi.
                 em().
-                createQuery("SELECT t FROM ComicTitle t", ComicTitle.class).
+                createQuery("SELECT t FROM ComicTitle t ORDER BY TitleName", ComicTitle.class).
                 getResultList();
 
         List<ComicCondition> comicConditions = jpaApi.
@@ -139,6 +139,16 @@ public class ComicController extends Controller
 
         jpaApi.em().persist(comic);
 
+        String creatorIds[] = request().body().asMultipartFormData().asFormUrlEncoded().get("creators[]");
+
+        for (String creatorId : creatorIds)
+        {
+            ComicCreatorLink comicCreator = new ComicCreatorLink();
+            comicCreator.setComicId(comic.getComicId());
+            comicCreator.setCreatorId(Integer.parseInt(creatorId));
+            jpaApi.em().persist(comicCreator);
+        }
+
         return redirect(routes.ComicController.getComicSearch());
     }
 
@@ -157,7 +167,7 @@ public class ComicController extends Controller
                 .getSingleResult();
 
         List<ComicCreator> creators = jpaApi.em()
-                .createNativeQuery("SELECT ComicCreatorId, CreatorName " +
+                .createNativeQuery("SELECT cc.ComicCreatorId, c.CreatorName, cc.ComicId " +
                         "FROM ComicCreator cc " +
                         "JOIN Creator c ON c.CreatorId = cc.CreatorId " +
                         "WHERE comicId = :comicId", ComicCreator.class)
@@ -166,7 +176,7 @@ public class ComicController extends Controller
 
         List<ComicTitle> comicTitle = jpaApi.
                 em().
-                createQuery("SELECT t FROM ComicTitle t", ComicTitle.class).
+                createQuery("SELECT t FROM ComicTitle t ORDER BY TitleName", ComicTitle.class).
                 getResultList();
 
         List<ComicCondition> comicConditions = jpaApi.
@@ -276,7 +286,7 @@ public class ComicController extends Controller
                                 "JOIN Publisher p ON t.publisherId = p.publisherId " +
                                 "JOIN ComicCondition cc ON c.ConditionId = cc.ConditionId " +
                                 "WHERE TitleName LIKE :searchname " +
-                                "ORDER BY TitleName",
+                                "ORDER BY TitleName, IssueNumber",
                         ComicDetail.class).setParameter("searchname", searchCriteria).getResultList();
         return ok(views.html.comicsearch.render(comicDetail));
     }

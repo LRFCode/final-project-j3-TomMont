@@ -17,11 +17,11 @@
 
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Cosmic Comic Collector</a>
+            <a class="navbar-brand mb-0">Cosmic Comic Collector</a>
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="/comicsearch">List</a></li>
-            <li><a href="/comicadd">Add Comic</a></li>
+            <li ><a href="/comicadd">Add Comic</a></li>
             <li><a href="/comicstats">Statistics</a></li></ul>
         <ul class="nav navbar-nav navbar-right">
             <form method="GET" class="form-inline">
@@ -54,7 +54,7 @@
         <td>@comicDetail.getConditionName</td>
         <td>@comicDetail.getRetailPrice()</td>
         <td>@comicDetail.getMarketPrice()</td>
-        <td><a href="/comicedit/@comicDetail.getComicId()"><button>Edit</button></a></td>
+        <td><a href="/comicedit/@comicDetail.getComicId()" class="btn btn-info" role="button">Edit</a></td>
     </tr>
 }
 </table>

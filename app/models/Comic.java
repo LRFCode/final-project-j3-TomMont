@@ -1,9 +1,6 @@
 package models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -26,7 +23,7 @@ CREATE TABLE Comic (
 @Table(name="comic")
 public class Comic
 {
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="ComicId")     private int comicId;
     @Column(name="IssueNumber")     private int issueNumber;
     @Column(name="TitleId")         private int titleId;

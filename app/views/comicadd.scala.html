@@ -17,11 +17,11 @@
 
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Cosmic Comic Collector</a>
+            <a class="navbar-brand" >Cosmic Comic Collector</a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/comicsearch">List</a></li>
-            <li><a href="/comicadd">Add Comic</a></li>
+            <li class="active"><a href="/comicadd">Add Comic</a></li>
             <li><a href="/comicstats">Statistics</a></li></ul>
         <ul class="nav navbar-nav navbar-right">
             <form method="GET" class="form-inline">
@@ -52,12 +52,11 @@
             <input type="number" id="issueNumber" name="issueNumber">
 
             <h3>Creators</h3>
-            <select name="creatorId">
-                @for(creators <- creators){
-                <option selected="true" value="@creators.getComicCreatorId()">@creators.getCreatorName()
-                </option>
-                }
-            </select>
+                <select name ="creators[]" id="creators" multiple="multiple">
+                    @for(creator <- creators){
+                    <option value="@creator.getComicCreatorId">@creator.getCreatorName()</option>
+                    }
+                </select>
 
 
             <h3>Publication Date</h3>
@@ -83,7 +82,7 @@
 
             <h3>Market Price</h3>
             <input type="number" id="marketPrice" name="marketPrice" step=".01"><br/><br/>
-            <button type="submit">Save</button><a href="/comicsearch"><button>Cancel</button></a>
+            <input type="submit" class="btn btn-info" value="Save"></form><a href="/comicsearch" class="btn btn-info" role="button">Cancel</a>
             </form>
         </div>
     </div>

@@ -1,15 +1,27 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class ComicCreator
 {
-    @Id
+    @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int comicCreatorId;
-
+    private int comicId;
     private String creatorName;
+
+    public int getComicId()
+    {
+        return comicId;
+    }
+
+    public void setComicId(int comicId)
+    {
+        this.comicId = comicId;
+    }
 
     public int getComicCreatorId()
     {
