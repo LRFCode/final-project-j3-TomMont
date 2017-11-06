@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 /*
@@ -33,6 +34,12 @@ public class Comic
     @Column(name="MarketPrice")     private BigDecimal MarketPrice;
     @Column(name="Description")     private String description;
     @Column(name="Image")           private byte[] image;
+
+    public String getFormattedMarketPrice()
+    {
+        DecimalFormat df = new DecimalFormat();
+        return df.format(MarketPrice);
+    }
 
     public int getComicId()
     {

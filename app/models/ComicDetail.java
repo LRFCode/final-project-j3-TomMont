@@ -3,6 +3,7 @@ package models;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -22,6 +23,12 @@ public class ComicDetail
     private String description;
     private BigDecimal retailPrice;
     private BigDecimal marketPrice;
+
+    public String getFormattedMarketPrice()
+    {
+        DecimalFormat df = new DecimalFormat("#,###,###.00");
+        return df.format(marketPrice);
+    }
 
     public int getConditionId()
     {

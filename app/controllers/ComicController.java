@@ -294,10 +294,72 @@ public class ComicController extends Controller
     @Transactional(readOnly = true)
     public Result getComicStats()
     {
-        ComicStats comicStats = new ComicStats();
-        comicStats.setNumberOfComics(49);
 
-        jpaApi.em().createNativeQuery("SELECT COUNT(*) AS ComicCount FROM Comics").getSingleResult();
+        ComicStats comicStats = new ComicStats();
+
+        ComicCount comicCount = (ComicCount)jpaApi.em()
+                        .createNativeQuery("SELECT COUNT(*) AS comicCount " +
+                        "FROM Comic c JOIN Title t ON t.TitleId = c.TitleId " +
+                        "JOIN Publisher p ON P.PublisherId = t.PublisherId", ComicCount.class).getSingleResult();
+
+        ComicCount dcCount = (ComicCount)jpaApi.em()
+                .createNativeQuery("SELECT COUNT(*) AS comicCount " +
+                        "FROM Comic c JOIN Title t ON t.TitleId = c.TitleId " +
+                        "JOIN Publisher p ON P.PublisherId = t.PublisherId " +
+                        "WHERE p.PublisherId=2", ComicCount.class).getSingleResult();
+
+        ComicCount marvelCount = (ComicCount)jpaApi.em()
+                .createNativeQuery("SELECT COUNT(*) AS comicCount " +
+                        "FROM Comic c JOIN Title t ON t.TitleId = c.TitleId " +
+                        "JOIN Publisher p ON P.PublisherId = t.PublisherId " +
+                        "WHERE p.PublisherId=1", ComicCount.class).getSingleResult();
+
+        ComicCount imageCount = (ComicCount)jpaApi.em()
+                .createNativeQuery("SELECT COUNT(*) AS comicCount " +
+                        "FROM Comic c JOIN Title t ON t.TitleId = c.TitleId " +
+                        "JOIN Publisher p ON P.PublisherId = t.PublisherId " +
+                        "WHERE p.PublisherId=4", ComicCount.class).getSingleResult();
+
+        ComicCount goldenCount = (ComicCount)jpaApi.em()
+                .createNativeQuery("SELECT COUNT(*) AS comicCount " +
+                        "FROM Comic c JOIN Title t ON t.TitleId = c.TitleId " +
+                        "JOIN Publisher p ON P.PublisherId = t.PublisherId " +
+                        "WHERE PublicationDate < '1955-12-30'", ComicCount.class).getSingleResult();
+
+        ComicCount silverCount = (ComicCount)jpaApi.em()
+                .createNativeQuery("SELECT COUNT(*) AS comicCount " +
+                        "FROM Comic c JOIN Title t ON t.TitleId = c.TitleId " +
+                        "JOIN Publisher p ON P.PublisherId = t.PublisherId " +
+                        "WHERE PublicationDate < '1969-12-30'", ComicCount.class).getSingleResult();
+
+        ComicCount bronzeCount = (ComicCount)jpaApi.em()
+                .createNativeQuery("SELECT COUNT(*) AS comicCount " +
+                        "FROM Comic c JOIN Title t ON t.TitleId = c.TitleId " +
+                        "JOIN Publisher p ON P.PublisherId = t.PublisherId " +
+                        "WHERE PublicationDate < '1985-12-30'", ComicCount.class).getSingleResult();
+
+        ComicCount darkCount = (ComicCount)jpaApi.em()
+                .createNativeQuery("SELECT COUNT(*) AS comicCount " +
+                        "FROM Comic c JOIN Title t ON t.TitleId = c.TitleId " +
+                        "JOIN Publisher p ON P.PublisherId = t.PublisherId " +
+                        "WHERE PublicationDate < '1995-12-30'", ComicCount.class).getSingleResult();
+
+        ComicCount modernCount = (ComicCount)jpaApi.em()
+                .createNativeQuery("SELECT COUNT(*) AS comicCount " +
+                        "FROM Comic c JOIN Title t ON t.TitleId = c.TitleId " +
+                        "JOIN Publisher p ON P.PublisherId = t.PublisherId " +
+                        "WHERE PublicationDate < '1995-12-30'", ComicCount.class).getSingleResult();
+
+
+        comicStats.setModernAge(modernCount.getComicCount());
+        comicStats.setDarkAge(darkCount.getComicCount());
+        comicStats.setBronzeAge(bronzeCount.getComicCount());
+        comicStats.setSilverAge(silverCount.getComicCount());
+        comicStats.setGoldenAge(goldenCount.getComicCount());
+        comicStats.setImageComics(imageCount.getComicCount());
+        comicStats.setMarvelComics(marvelCount.getComicCount());
+        comicStats.setDcComics(dcCount.getComicCount());
+        comicStats.setComicCount(comicCount.getComicCount());
 
         return ok(views.html.comicstats.render(comicStats));
     }
