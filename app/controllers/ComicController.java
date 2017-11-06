@@ -296,6 +296,8 @@ public class ComicController extends Controller
     {
 
         ComicStats comicStats = new ComicStats();
+        ComicDate comicDate = new ComicDate();
+        ComicValue comicValue = new ComicValue();
 
         ComicCount comicCount = (ComicCount)jpaApi.em()
                         .createNativeQuery("SELECT COUNT(*) AS comicCount " +
@@ -350,7 +352,26 @@ public class ComicController extends Controller
                         "JOIN Publisher p ON P.PublisherId = t.PublisherId " +
                         "WHERE PublicationDate < '1995-12-30'", ComicCount.class).getSingleResult();
 
+        ComicDate oldestPublished = (ComicDate)jpaApi.em()
+                .createNativeQuery("SELECT MIN(c.PublicationDate) AS publicationDate " +
+                        "FROM Comic c", ComicDate.class).getSingleResult();
 
+        ComicValue mostValuable = (ComicValue)jpaApi.em()
+                .createNativeQuery("SELECT MAX(c.MarketPrice) AS Value " +
+                        "FROM Comic c", ComicValue.class).getSingleResult();
+
+        ComicValue totalRetail = (ComicValue)jpaApi.em()
+                .createNativeQuery("SELECT SUM(c.RetailPrice) AS Value " +
+                        "FROM Comic c", ComicValue.class).getSingleResult();
+
+        ComicValue totalMarket = (ComicValue)jpaApi.em()
+                .createNativeQuery("SELECT SUM(c.MarketPrice) AS Value " +
+                        "FROM Comic c", ComicValue.class).getSingleResult();
+
+        comicStats.setRetailPriceTotal(totalRetail);
+        comicStats.setMarketPriceTotal(totalMarket);
+        comicStats.setMostExpensiveComic(mostValuable);
+        comicDate.setPublicationDate(oldestPublished.getPublicationDate());
         comicStats.setModernAge(modernCount.getComicCount());
         comicStats.setDarkAge(darkCount.getComicCount());
         comicStats.setBronzeAge(bronzeCount.getComicCount());
@@ -361,7 +382,7 @@ public class ComicController extends Controller
         comicStats.setDcComics(dcCount.getComicCount());
         comicStats.setComicCount(comicCount.getComicCount());
 
-        return ok(views.html.comicstats.render(comicStats));
+        return ok(views.html.comicstats.render(comicStats, comicDate, comicValue));
     }
 
     @Transactional(readOnly = true)

@@ -1,4 +1,4 @@
-@(comicStats : ComicStats)
+@(comicStats : ComicStats, comicDate : ComicDate, comicValue : ComicValue)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,12 +30,12 @@
 <div class="container" style="margin-top:75px">
     <div class="col-md-4">
 <label>Number of Comics: </label><p> @comicStats.getComicCount()</p><br><br><br>
-<label>Total Retail Value: </label><p> @comicStats.getRetailPriceTotal()</p><br><br><br>
-<label>Total Market Value: </label><p> @comicStats.getMarketPriceTotal()</p><br><br><br>
-<label>Oldest Comic: </label><p> @comicStats.getOldestComic()</p><br><br><br>
+<label>Total Retail Value: </label><p> @comicStats.getRetailPriceTotal().getFormattedValue</p><br><br><br>
+<label>Total Market Value: </label><p> @comicStats.getMarketPriceTotal().getFormattedValue</p><br><br><br>
+<label>Oldest Issue Date: </label><p> @comicDate.getFormattedPublicationDate()</p><br><br><br>
     </div>
     <div class="col-md-4">
-<label>Most Expensive Comic: </label><p> @comicStats.getMostExpensiveComic()</p><br><br><br>
+<label>Most Expensive Comic: </label><p> @comicStats.getMostExpensiveComic().getFormattedValue</p><br><br><br>
 <label>Total DC Comics: </label><p> @comicStats.getDcComics()</p><br><br><br>
 <label>Total Marvel Comics: </label><p> @comicStats.getMarvelComics</p><br><br><br>
 <label>Total Image Comics: </label><p> @comicStats.getImageComics</p><br><br><br>

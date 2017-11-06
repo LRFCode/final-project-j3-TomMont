@@ -6,18 +6,18 @@ import java.util.Date;
 public class ComicStats
 {
     private int numberOfComics;
-    private BigDecimal retailPriceTotal = new BigDecimal(86);
-    private BigDecimal marketPriceTotal = new BigDecimal (49);
-    private Date oldestComic = new Date();
-    private BigDecimal mostExpensiveComic = new BigDecimal("24.94");
-    private int dcComics = 6;
-    private int marvelComics = 2;
-    private int imageComics = 5;
-    private int goldenAge = 6;
-    private int silverAge = 9;
-    private int bronzeAge = 93;
-    private int darkAge = 43;
-    private int modernAge = 49;
+    private ComicValue retailPriceTotal;
+    private ComicValue marketPriceTotal;
+    private Date oldestComic;
+    private ComicValue mostExpensiveComic;
+    private int dcComics;
+    private int marvelComics;
+    private int imageComics;
+    private int goldenAge;
+    private int silverAge;
+    private int bronzeAge;
+    private int darkAge;
+    private int modernAge;
     private int comicCount;
 
     public int getComicCount()
@@ -30,12 +30,12 @@ public class ComicStats
         this.comicCount = comicCount;
     }
 
-    public BigDecimal getMostExpensiveComic()
+    public ComicValue getMostExpensiveComic()
     {
         return mostExpensiveComic;
     }
 
-    public void setMostExpensiveComic(BigDecimal mostExpensiveComic)
+    public void setMostExpensiveComic(ComicValue mostExpensiveComic)
     {
         this.mostExpensiveComic = mostExpensiveComic;
     }
@@ -130,22 +130,22 @@ public class ComicStats
         this.numberOfComics = numberOfComics;
     }
 
-    public BigDecimal getRetailPriceTotal()
+    public ComicValue getRetailPriceTotal()
     {
         return retailPriceTotal;
     }
 
-    public void setRetailPriceTotal(BigDecimal retailPriceTotal)
+    public void setRetailPriceTotal(ComicValue retailPriceTotal)
     {
         this.retailPriceTotal = retailPriceTotal;
     }
 
-    public BigDecimal getMarketPriceTotal()
+    public ComicValue getMarketPriceTotal()
     {
         return marketPriceTotal;
     }
 
-    public void setMarketPriceTotal(BigDecimal marketPriceTotal)
+    public void setMarketPriceTotal(ComicValue marketPriceTotal)
     {
         this.marketPriceTotal = marketPriceTotal;
     }
