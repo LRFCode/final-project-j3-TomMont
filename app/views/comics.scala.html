@@ -36,14 +36,14 @@
     </div>
 
         <div class="col-sm-3">
-<h3>Title</h3><br>
+<h3>Title</h3>
 <p>@comicDetail.getTitleName()</p>
 
 
-<h3>Issue</h3><br>
+<h3>Issue</h3>
 <p>@comicDetail.getIssueNumber()</p>
 
-<h3>Creators</h3><br>
+<h3>Creators</h3>
     @for(creator <- creators){
 <p>@creator.getCreatorName()</p>
     }
@@ -66,7 +66,7 @@
 <p>@comicDetail.getRetailPrice()</p>
 
 <h3>Market Price</h3>
-<p>@comicDetail.getMarketPrice()</p><br>
+<p>@comicDetail.getFormattedMarketPrice()</p><br>
 
         <a href="/comicedit/@comicDetail.getComicId()" class="btn btn-info" role="button">Edit</button></a>
     </div>

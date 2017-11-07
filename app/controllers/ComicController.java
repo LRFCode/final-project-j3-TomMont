@@ -245,7 +245,7 @@ public class ComicController extends Controller
 
         jpaApi.em().persist(comic);
 
-        return redirect(routes.ComicController.getComicSearch());
+        return redirect(routes.ComicController.getComic(comicId));
     }
 
     @Transactional(readOnly = true)

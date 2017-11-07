@@ -57,15 +57,15 @@
 <p>@creator.getCreatorName()</p>
 }
 
-
-<h3>Publication Date</h3>
-<input type="date" value="@comicDetail.getFormattedPublicationDate" id="publicationDate" name="publicationDate">
-
 <h3>Publisher</h3>
 <p>@comicDetail.getPublisher()</p>
 </div>
 
 <div class="col-sm-4">
+
+<h3>Publication Date</h3>
+<input type="date" value="@comicDetail.getFormattedPublicationDate" id="publicationDate" name="publicationDate">
+
 <h3>Condition</h3>
     <select name="conditionId">
         @for(comicCondition <- comicConditions){
