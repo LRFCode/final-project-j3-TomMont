@@ -17,7 +17,7 @@
 
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Cosmic Comic Collector</a>
+            <a class="navbar-brand mb-0" href="/comicsearch"><b>Cosmic Comic Collector</b></a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/comicsearch">List</a></li>
@@ -59,12 +59,13 @@
 
 <h3>Publisher</h3>
 <p>@comicDetail.getPublisher()</p>
+
+<h3>Publication Date</h3>
+<input type="date" value="@comicDetail.getFormattedPublicationDate" id="publicationDate" name="publicationDate">
 </div>
 
 <div class="col-sm-4">
 
-<h3>Publication Date</h3>
-<input type="date" value="@comicDetail.getFormattedPublicationDate" id="publicationDate" name="publicationDate">
 
 <h3>Condition</h3>
     <select name="conditionId">

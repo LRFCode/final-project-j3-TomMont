@@ -17,7 +17,7 @@
 
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" >Cosmic Comic Collector</a>
+            <a class="navbar-brand mb-0" href="/comicsearch"><b>Cosmic Comic Collector</b></a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/comicsearch">List</a></li>
@@ -56,15 +56,18 @@
                     }
                 </select>
 
-
-            <h3>Publication Date</h3>
-            <input type="date" id="publicationDate" name="publicationDate">
-
             <h3>Publisher</h3>
             <p>*Publisher is specific to title*</p>
+
+
+        <h3>Publication Date</h3>
+        <input type="date" id="publicationDate" name="publicationDate">
         </div>
 
         <div class="col-sm-4">
+
+
+
             <h3>Condition</h3>
             <select name="conditionId">
                 @for(comicCondition <- comicConditions){
