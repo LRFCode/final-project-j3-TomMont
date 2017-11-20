@@ -15,31 +15,31 @@ The end user screens of this program are the following:
 
 Where the user can see and scroll through all the comics in their collection
 
-*screen insert here*
+![Image of List View](https://i.imgur.com/SmoOASC.png)
 
 ### Specific Comic
 
 Where the user can view more attributes of a specific comic as well as a larger cover image
 
-*screen insert here*
+![Image of Specific View](https://i.imgur.com/1p6NKS4.png)
 
 ### Add Comic
 
 Where the user can add a new comic to their collection
 
-*screen insert here*
+![Image of Add Comic View](https://i.imgur.com/IdtsIxa.png)
 
 ### Edit Specific Comic
 
 Accessed by an Edit button from List or Specific Comic views, allows user to change comic attributes
 
-*screen insert here*
+![Image of Edit Specific View](https://i.imgur.com/MdjbaCc.png)
 
 ### Statistics
 
 Screen that gives information on the users entire collection.
 
-*screen insert here*
+![Image of Statistics View](https://i.imgur.com/n01jmb7.png)
 
 
 To do list:
