@@ -1,57 +1,59 @@
-[<img src="https://img.shields.io/travis/playframework/play-java-starter-example.svg"/>](https://travis-ci.org/playframework/play-java-starter-example)
+# Cosmic Comic Collector
 
-# Play Java Starter
+I created this program for comic collectors, such as myself, to achieve organization of their collection.
+It achieves this through the following:
 
-This is a starter application that shows how Play works.  Please see the documentation at https://www.playframework.com/documentation/latest/Home for more details.
+* Allows user to add comics from their collection to the program
+* Sorts comics in a List screen with several sections of information on each comic in their collection
+* Allows user to edit any comic in their collection and their attributes
+* Calculates and displays information about their entire collection as a whole
 
-## Running
 
-Run this using [sbt](http://www.scala-sbt.org/).  If you downloaded this project from http://www.playframework.com/download then you'll find a prepackaged version of sbt in the project directory:
+The end user screens of this program are the following:
 
-```
-sbt run
-```
+### List
 
-And then go to http://localhost:9000 to see the running web application.
+Where the user can see and scroll through all the comics in their collection
 
-## Controllers
+*screen insert here*
 
-There are several demonstration files available in this template.
+### Specific Comic
 
-- HomeController.java:
+Where the user can view more attributes of a specific comic as well as a larger cover image
 
-  Shows how to handle simple HTTP requests.
+*screen insert here*
 
-- AsyncController.java:
+### Add Comic
 
-  Shows how to do asynchronous programming when handling a request.
+Where the user can add a new comic to their collection
 
-- CountController.java:
+*screen insert here*
 
-  Shows how to inject a component into a controller and use the component when
-  handling requests.
+### Edit Specific Comic
 
-## Components
+Accessed by an Edit button from List or Specific Comic views, allows user to change comic attributes
 
-- Module.java:
+*screen insert here*
 
-  Shows how to use Guice to bind all the components needed by your application.
+### Statistics
 
-- Counter.java:
+Screen that gives information on the users entire collection.
 
-  An example of a component that contains state, in this case a simple counter.
+*screen insert here*
 
-- ApplicationTimer.java:
 
-  An example of a component that starts when the application starts and stops
-  when the application stops.
+To do list:
 
-## Filters
+* Adjust tables so that user can add a brand new title on the Add Comic screen as opposed to a new issue of an already existing title.
+* Add an API to pull down cover image of comic being added.
+* Add an API to pull down retail and market values of comic being added as well as ones that are already added but fluxuate in price.
+* Ability to have the List view output 20/50 comics per page with multiple pages for easier viewing.
+* More front end adjustments such as Search box margins, nav bar graphics, List table margins.
 
-- Filters.java:
 
-  Creates the list of HTTP filters used by your application.
 
-- ExampleFilter.java
+This project was created use IntelliJ as my IDE, Java, HeidiSQL to construct a MySQL databse, Play framework, HTML for the front-end.
 
-  A simple filter that adds a header to every response.
+
+
+
