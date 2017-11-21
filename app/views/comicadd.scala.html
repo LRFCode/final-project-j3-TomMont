@@ -38,13 +38,17 @@
         </div>
 
         <div class="col-sm-3">
+
             <h3>Title</h3>
-            <select name="titleId">
+            <input type="text" name="comicTitle" id="comicTitle" list="comicTitles">
+            <datalist id="comicTitles">
+
                 @for(comicTitle <- comicTitle){
-                <option selected="true" value="@comicTitle.getTitleId()">@comicTitle.getTitleName()
+                <option selected="true" value="@comicTitle.getTitleName()">@comicTitle.getTitleName()
                 </option>
             }
             </select>
+            </datalist>
 
             <h3>Issue</h3>
             <input type="number" id="issueNumber" name="issueNumber">

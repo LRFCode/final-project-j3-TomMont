@@ -17,7 +17,7 @@ public class ComicDetail
     private String publisherName;
     private Integer issueNumber;
     private Date publicationDate;
-    private int publisherId;
+    private Integer publisherId;
     private int conditionId;
     private String conditionName;
     private String description;
@@ -55,7 +55,7 @@ public class ComicDetail
         return publisherId;
     }
 
-    public void setPublisherId(int publisherId)
+    public void setPublisherId(Integer publisherId)
     {
         this.publisherId = publisherId;
     }

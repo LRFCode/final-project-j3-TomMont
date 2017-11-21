@@ -38,7 +38,7 @@ public class ComicController extends Controller
                 .createNativeQuery("SELECT c.ComicId, t.TitleName, t.TitleId, c.RetailPrice, c.MarketPrice, c.IssueNumber, c.Description, p.PublisherId, p.PublisherName, c.PublicationDate, cc.conditionId, cc.conditionName " +
                         "FROM Comic c " +
                         "JOIN Title t ON c.titleId = t.titleId " +
-                        "JOIN Publisher p ON p.PublisherId = t.PublisherId " +
+                        "LEFT OUTER JOIN Publisher p ON p.PublisherId = t.PublisherId " +
                         "JOIN ComicCondition cc ON c.ConditionId = cc.ConditionId " +
                         "WHERE comicId = :comicId", ComicDetail.class)
                 .setParameter("comicId", comicId)
@@ -109,9 +109,30 @@ public class ComicController extends Controller
         int conditionId = Integer.parseInt(form.get("conditionId"));
         BigDecimal retailPrice = new BigDecimal(form.get("retailPrice"));
         BigDecimal marketPrice = new BigDecimal(form.get("marketPrice"));
-        int titleId = Integer.parseInt(form.get("titleId"));
         String formattedDate = form.get("publicationDate");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String comicTitle = form.get("comicTitle");
+
+        List<ComicTitle> titles = jpaApi.em().
+                createQuery("SELECT t FROM ComicTitle t WHERE titleName = :titleName").
+                setParameter("titleName", comicTitle).
+                getResultList();
+
+        int titleId;
+
+        if(titles.size() == 0)
+        {
+            ComicTitle comictitle = new ComicTitle();
+            comictitle.setTitleName(comicTitle);
+            jpaApi.em().persist(comictitle);
+            titleId = comictitle.getTitleId();
+        }
+        else
+        {
+            titleId = titles.get(0).getTitleId();
+        }
+
+
 
         Date publicationDate;
 
@@ -160,7 +181,7 @@ public class ComicController extends Controller
                 .createNativeQuery("SELECT c.ComicId, t.TitleName, t.TitleId, c.RetailPrice, c.MarketPrice, c.IssueNumber, c.Description, p.PublisherId, p.PublisherName, c.PublicationDate, cc.ConditionId, cc.ConditionName " +
                         "FROM Comic c " +
                         "JOIN Title t ON c.titleId = t.titleId " +
-                        "JOIN Publisher p ON p.PublisherId = t.PublisherId " +
+                        "LEFT OUTER JOIN Publisher p ON p.PublisherId = t.PublisherId " +
                         "JOIN ComicCondition cc ON c.ConditionId = cc.ConditionId " +
                         "WHERE comicId = :comicId", ComicDetail.class)
                 .setParameter("comicId", comicId)
@@ -283,7 +304,7 @@ public class ComicController extends Controller
                                 "RetailPrice, MarketPrice, Description, publisherName, PublicationDate, p.publisherId, cc.conditionId, cc.conditionName " +
                                 "FROM Comic c " +
                                 "JOIN Title t ON c.titleId = t.titleId " +
-                                "JOIN Publisher p ON t.publisherId = p.publisherId " +
+                                "LEFT OUTER JOIN Publisher p ON t.publisherId = p.publisherId " +
                                 "JOIN ComicCondition cc ON c.ConditionId = cc.ConditionId " +
                                 "WHERE TitleName LIKE :searchname " +
                                 "ORDER BY TitleName, IssueNumber",
